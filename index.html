@@ -5,6 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Be My Valentine Riya 💖</title>
+
     <style>
         body {
             margin: 0;
@@ -21,28 +22,28 @@
 
         /* Screen Shake */
         .shake {
-            animation: shakeScreen 0.5s ease;
+            animation: shakeScreen .5s ease;
         }
 
         @keyframes shakeScreen {
             0% {
-                transform: translate(0, 0);
+                transform: translate(0, 0)
             }
 
             25% {
-                transform: translate(8px, -8px);
+                transform: translate(8px, -8px)
             }
 
             50% {
-                transform: translate(-8px, 8px);
+                transform: translate(-8px, 8px)
             }
 
             75% {
-                transform: translate(8px, 8px);
+                transform: translate(8px, 8px)
             }
 
             100% {
-                transform: translate(0, 0);
+                transform: translate(0, 0)
             }
         }
 
@@ -52,18 +53,18 @@
             bottom: -50px;
             font-size: 24px;
             animation: floatUp linear infinite;
-            opacity: 0.8;
+            opacity: .8;
         }
 
         @keyframes floatUp {
             from {
                 transform: translateY(0) scale(1);
-                opacity: 0.9;
+                opacity: .9
             }
 
             to {
                 transform: translateY(-110vh) scale(1.5);
-                opacity: 0;
+                opacity: 0
             }
         }
 
@@ -73,15 +74,13 @@
             width: 10px;
             height: 10px;
             top: -10px;
-            opacity: 0.9;
             animation: fall linear forwards;
             z-index: 999;
         }
 
         @keyframes fall {
             to {
-                transform: translateY(110vh) rotate(720deg);
-                opacity: 1;
+                transform: translateY(110vh) rotate(720deg)
             }
         }
 
@@ -90,7 +89,7 @@
             background: white;
             padding: 40px 25px;
             border-radius: 25px;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, .2);
             max-width: 400px;
             width: 100%;
             position: relative;
@@ -106,7 +105,7 @@
         h2 {
             color: #ff2e78;
             margin-bottom: 10px;
-            font-size: 22px;
+            font-size: 22px
         }
 
         .name {
@@ -116,12 +115,15 @@
             margin-bottom: 25px;
         }
 
+        /* Buttons layout */
         .buttons {
             display: flex;
             justify-content: center;
+            align-items: center;
             gap: 15px;
             position: relative;
-            flex-wrap: wrap;
+            height: 80px;
+            /* movement space */
         }
 
         button {
@@ -130,12 +132,12 @@
             border-radius: 30px;
             font-size: 16px;
             cursor: pointer;
-            transition: 0.3s;
         }
 
         #yesBtn {
             background: #ff2e78;
             color: white;
+            z-index: 2;
         }
 
         #yesBtn:hover {
@@ -143,11 +145,11 @@
             transform: scale(1.1);
         }
 
+        /* NO button default position */
         #noBtn {
             background: #ddd;
             position: relative;
-            transition: transform 0.25s ease;
-            /* smooth movement */
+            transition: all .25s ease;
         }
 
         .result {
@@ -161,24 +163,27 @@
             border-radius: 15px;
         }
 
-        /* Mobile Responsive */
-        @media (max-width: 480px) {
+        /* Mobile */
+        @media(max-width:480px) {
             .card {
-                padding: 30px 18px;
-                border-radius: 20px;
+                padding: 30px 18px
             }
 
             h2 {
-                font-size: 20px;
+                font-size: 20px
             }
 
             .name {
-                font-size: 18px;
+                font-size: 18px
             }
 
             button {
                 font-size: 14px;
-                padding: 10px 18px;
+                padding: 10px 18px
+            }
+
+            .buttons {
+                height: 90px
             }
         }
     </style>
@@ -186,8 +191,8 @@
 
 <body>
 
-    <!-- Floating Hearts -->
     <script>
+        /* Floating Hearts */
         for (let i = 0; i < 25; i++) {
             const heart = document.createElement("div");
             heart.className = "heart";
@@ -200,20 +205,22 @@
     </script>
 
     <div class="card" id="card">
-        <img src="https://media.giphy.com/media/26BRv0ThflsHCqDrG/giphy.gif" alt="Cute Teddy" class="character" />
+
+        <img src="https://media.giphy.com/media/26BRv0ThflsHCqDrG/giphy.gif" class="character" />
 
         <h2>Will you be my Valentine? 💘</h2>
         <div class="name">Riya ❤️</div>
 
-        <div class="buttons">
+        <div class="buttons" id="btnArea">
             <button id="yesBtn">Yes 💖</button>
             <button id="noBtn">No 😢</button>
         </div>
 
         <div class="result" id="result">
             <h3>Yayyyyy!!! 🥳❤️</h3>
-            <img src="https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif" alt="Happy Man GIF" />
+            <img src="https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif" />
         </div>
+
     </div>
 
     <script>
@@ -222,11 +229,12 @@
         const result = document.getElementById("result");
         const card = document.getElementById("card");
 
+        /* Playful run‑away behaviour */
         function moveNoButton() {
+
             const cardRect = card.getBoundingClientRect();
             const btnRect = noBtn.getBoundingClientRect();
 
-            // Safe movement area inside card
             const padding = 20;
 
             const maxX = cardRect.width - btnRect.width - padding * 2;
@@ -235,27 +243,31 @@
             const x = Math.random() * maxX - maxX / 2;
             const y = Math.random() * maxY - maxY / 2;
 
-            noBtn.style.transform = `translate(${x}px, ${y}px)`;
+            noBtn.style.position = "absolute";
+            noBtn.style.left = "50%";
+            noBtn.style.top = "65%";
+            noBtn.style.transform = `translate(${x}px,${y}px)`;
         }
 
         noBtn.addEventListener("mouseover", moveNoButton);
         noBtn.addEventListener("touchstart", moveNoButton);
 
+        /* Confetti */
         function launchConfetti() {
             const colors = ["#ff2e78", "#ffd6e7", "#ffffff", "#ff6fa5", "#ffc0cb"];
 
             for (let i = 0; i < 120; i++) {
-                const confetti = document.createElement("div");
-                confetti.className = "confetti";
-                confetti.style.left = Math.random() * 100 + "vw";
-                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-                confetti.style.animationDuration = 2 + Math.random() * 3 + "s";
-                document.body.appendChild(confetti);
-
-                setTimeout(() => confetti.remove(), 5000);
+                const c = document.createElement("div");
+                c.className = "confetti";
+                c.style.left = Math.random() * 100 + "vw";
+                c.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                c.style.animationDuration = 2 + Math.random() * 3 + "s";
+                document.body.appendChild(c);
+                setTimeout(() => c.remove(), 5000);
             }
         }
 
+        /* Shake */
         function shakeScreen() {
             card.classList.add("shake");
             setTimeout(() => card.classList.remove("shake"), 500);
