@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Be My Valentine Riya 💖</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: "Poppins", sans-serif;
+            background: linear-gradient(135deg, #ff9ec4, #ffd6e7, #ff6fa5);
+            overflow: hidden;
+            position: relative;
+            padding: 15px;
+        }
+
+        /* Screen Shake */
+        .shake {
+            animation: shakeScreen 0.5s ease;
+        }
+
+        @keyframes shakeScreen {
+            0% {
+                transform: translate(0, 0);
+            }
+
+            25% {
+                transform: translate(8px, -8px);
+            }
+
+            50% {
+                transform: translate(-8px, 8px);
+            }
+
+            75% {
+                transform: translate(8px, 8px);
+            }
+
+            100% {
+                transform: translate(0, 0);
+            }
+        }
+
+        /* Floating Hearts */
+        .heart {
+            position: absolute;
+            bottom: -50px;
+            font-size: 24px;
+            animation: floatUp linear infinite;
+            opacity: 0.8;
+        }
+
+        @keyframes floatUp {
+            from {
+                transform: translateY(0) scale(1);
+                opacity: 0.9;
+            }
+
+            to {
+                transform: translateY(-110vh) scale(1.5);
+                opacity: 0;
+            }
+        }
+
+        /* Confetti */
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            top: -10px;
+            opacity: 0.9;
+            animation: fall linear forwards;
+            z-index: 999;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(110vh) rotate(720deg);
+                opacity: 1;
+            }
+        }
+
+        .card {
+            text-align: center;
+            background: white;
+            padding: 40px 25px;
+            border-radius: 25px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+            max-width: 400px;
+            width: 100%;
+            position: relative;
+            z-index: 2;
+        }
+
+        .character {
+            width: 180px;
+            max-width: 70%;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            color: #ff2e78;
+            margin-bottom: 10px;
+            font-size: 22px;
+        }
+
+        .name {
+            color: #e6005c;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 25px;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            position: relative;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 12px 22px;
+            border: none;
+            border-radius: 30px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        #yesBtn {
+            background: #ff2e78;
+            color: white;
+        }
+
+        #yesBtn:hover {
+            background: #e6005c;
+            transform: scale(1.1);
+        }
+
+        #noBtn {
+            background: #ddd;
+            position: absolute;
+        }
+
+        .result {
+            display: none;
+            margin-top: 20px;
+        }
+
+        .result img {
+            width: 200px;
+            max-width: 80%;
+            border-radius: 15px;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 480px) {
+            .card {
+                padding: 30px 18px;
+                border-radius: 20px;
+            }
+
+            h2 {
+                font-size: 20px;
+            }
+
+            .name {
+                font-size: 18px;
+            }
+
+            button {
+                font-size: 14px;
+                padding: 10px 18px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Floating Hearts -->
+    <script>
+        for (let i = 0; i < 25; i++) {
+            const heart = document.createElement("div");
+            heart.className = "heart";
+            heart.innerHTML = "💖";
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.style.animationDuration = 3 + Math.random() * 5 + "s";
+            heart.style.fontSize = 20 + Math.random() * 30 + "px";
+            document.body.appendChild(heart);
+        }
+    </script>
+
+    <div class="card" id="card">
+        <img src="https://media.giphy.com/media/26BRv0ThflsHCqDrG/giphy.gif" alt="Cute Teddy" class="character" />
+
+        <h2>Will you be my Valentine? 💘</h2>
+        <div class="name">Riya ❤️</div>
+
+        <div class="buttons">
+            <button id="yesBtn">Yes 💖</button>
+            <button id="noBtn">No 😢</button>
+        </div>
+
+        <div class="result" id="result">
+            <h3>Yayyyyy!!! 🥳❤️</h3>
+            <img src="https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif" alt="Happy Man GIF" />
+        </div>
+    </div>
+
+    <script>
+        const noBtn = document.getElementById("noBtn");
+        const yesBtn = document.getElementById("yesBtn");
+        const result = document.getElementById("result");
+        const card = document.getElementById("card");
+
+        function moveNoButton() {
+            const x = Math.random() * 250 - 125;
+            const y = Math.random() * 250 - 125;
+            noBtn.style.transform = `translate(${x}px, ${y}px)`;
+        }
+
+        noBtn.addEventListener("mouseover", moveNoButton);
+        noBtn.addEventListener("touchstart", moveNoButton);
+
+        function launchConfetti() {
+            const colors = ["#ff2e78", "#ffd6e7", "#ffffff", "#ff6fa5", "#ffc0cb"];
+
+            for (let i = 0; i < 120; i++) {
+                const confetti = document.createElement("div");
+                confetti.className = "confetti";
+                confetti.style.left = Math.random() * 100 + "vw";
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.animationDuration = 2 + Math.random() * 3 + "s";
+                document.body.appendChild(confetti);
+
+                setTimeout(() => confetti.remove(), 5000);
+            }
+        }
+
+        function shakeScreen() {
+            card.classList.add("shake");
+            setTimeout(() => card.classList.remove("shake"), 500);
+        }
+
+        yesBtn.addEventListener("click", () => {
+            result.style.display = "block";
+            launchConfetti();
+            shakeScreen();
+        });
+    </script>
+
+</body>
+
+</html>
